@@ -1,10 +1,11 @@
 package org.example;
 
 import jakarta.transaction.Transactional;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 // controller wants us to return view templates
 // restcontroller allows us to return json objects
@@ -17,18 +18,18 @@ public class AddressBookController {
         this.repo = repo;
     }
 
-    @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/")
     public String home() {
         System.out.println("AddressBook Controller... passing through");
 
         return "home";
     }
 
-    @RequestMapping(value = "/addressBook", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addressBook")
     public String getAddressBook(@RequestParam(value = "id") long id, Model model) {
         AddressBook addressBook = repo.findById(id);
 
-        if(addressBook != null) {
+        if (addressBook != null) {
             model.addAttribute("id", addressBook.getId());
             model.addAttribute("buddies", addressBook.getAddressBook());
         } else {
@@ -38,7 +39,7 @@ public class AddressBookController {
         return "addressBook";
     }
 
-    @RequestMapping(value = "/addressBook/new", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addressBook/new")
     public String createAddressBook(Model model) {
         AddressBook newBook = new AddressBook();
 
@@ -51,9 +52,9 @@ public class AddressBookController {
     }
 
     @Transactional
-    @RequestMapping(value = "/addressBook/buddy/remove", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addressBook/buddy/remove")
     public String removeBuddy(@RequestParam(value = "address_id") long address_id,
-                              @RequestParam(value = "buddy_id") long buddy_id,  Model model) {
+                              @RequestParam(value = "buddy_id") long buddy_id, Model model) {
         AddressBook addressBook = repo.findById(address_id);
         addressBook.removeBuddy(buddy_id);
 
@@ -64,11 +65,11 @@ public class AddressBookController {
     }
 
     @Transactional
-    @RequestMapping(value = "/addressBook/buddy/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addressBook/buddy/add")
     public String addBuddy(@RequestParam(value = "address_id") long address_id,
                            @RequestParam(value = "name") String name,
                            @RequestParam(value = "phoneNumber") String phoneNumber,
-                           Model model ) {
+                           Model model) {
         AddressBook addressBook = repo.findById(address_id);
         BuddyInfo newBuddy = new BuddyInfo(name, phoneNumber);
 
@@ -80,12 +81,12 @@ public class AddressBookController {
         return "addBuddy";
     }
 
-    @RequestMapping(value = "/test/addressBook", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/test/addressBook")
     @ResponseBody
     public AddressBook getAddressBookTest(@RequestParam(value = "id") long id, Model model) {
         AddressBook addressBook = repo.findById(id);
 
-        if(addressBook != null) {
+        if (addressBook != null) {
             model.addAttribute("id", addressBook.getId());
             model.addAttribute("buddies", addressBook.getAddressBook());
         } else {
