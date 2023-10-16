@@ -69,9 +69,10 @@ public class AddressBookController {
     public String addBuddy(@RequestParam(value = "address_id") long address_id,
                            @RequestParam(value = "name") String name,
                            @RequestParam(value = "phoneNumber") String phoneNumber,
+                           @RequestParam(value = "address") String address,
                            Model model) {
         AddressBook addressBook = repo.findById(address_id);
-        BuddyInfo newBuddy = new BuddyInfo(name, phoneNumber);
+        BuddyInfo newBuddy = new BuddyInfo(name, phoneNumber, address);
 
         addressBook.addBuddy(newBuddy);
 

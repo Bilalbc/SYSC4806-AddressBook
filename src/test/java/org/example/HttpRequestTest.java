@@ -50,7 +50,7 @@ public class HttpRequestTest {
     public void testAddBuddy() {
         this.restTemplate.getForEntity("http://localhost:" + port + "/addressBook/new", String.class);
         this.restTemplate.getForEntity("http://localhost:" + port
-                + "/addressBook/buddy/add?address_id=1&name=Bilal&phoneNumber=613-999-9999", String.class);
+                + "/addressBook/buddy/add?address_id=1&name=Bilal&phoneNumber=613-999-9999&address=Ottawa", String.class);
 
         ResponseEntity<AddressBook> response = this.restTemplate.getForEntity("http://localhost:" + port
                 + "/test/addressBook?id=1", AddressBook.class);

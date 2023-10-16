@@ -3,10 +3,10 @@ package org.example;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 
 /**
  * BuddyInfo Class for Lab 1
+ *
  * @author Bilal Chaudhry 101141634
  * @version 1.0
  */
@@ -15,6 +15,7 @@ public class BuddyInfo {
 
     private String phoneNumber;
     private String name;
+    private String address;
 
     @Id
     @GeneratedValue
@@ -23,16 +24,30 @@ public class BuddyInfo {
     /**
      * Constructor for a BuddyInfo Object
      */
-    protected BuddyInfo() {}
+    protected BuddyInfo() {
+    }
 
     /**
      * Constructor for BuddyIngo Object
-     * @param name : String, name of buddy
+     *
+     * @param name        : String, name of buddy
      * @param phoneNumber : String, phone number of buddy
      */
     public BuddyInfo(String name, String phoneNumber) {
+        this(name, phoneNumber, "Ottawa");
+    }
+
+    /**
+     * Constructor for BuddyIngo Object
+     *
+     * @param name        : String, name of buddy
+     * @param phoneNumber : String, phone number of buddy
+     * @param address     : String, address of the buddy
+     */
+    public BuddyInfo(String name, String phoneNumber, String address) {
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     public Long getId() {
@@ -45,6 +60,7 @@ public class BuddyInfo {
 
     /**
      * getter for phoneNumber
+     *
      * @return String, phoneNumber
      */
     public String getPhoneNumber() {
@@ -54,6 +70,7 @@ public class BuddyInfo {
 
     /**
      * Setter for phoneNumber
+     *
      * @param phoneNumber : String
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -62,6 +79,7 @@ public class BuddyInfo {
 
     /**
      * Getter for name
+     *
      * @return String, name
      */
     public String getName() {
@@ -70,15 +88,24 @@ public class BuddyInfo {
 
     /**
      * Setter for name
+     *
      * @param name : String
      */
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return "Buddy: " + name + ", PhoneNumber: " + phoneNumber;
+        return "Buddy: " + name + ", PhoneNumber: " + phoneNumber + ", Address: " + address;
     }
 
 
